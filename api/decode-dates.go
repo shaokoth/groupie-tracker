@@ -12,7 +12,7 @@ type Dates struct {
 
 type Date struct {
 	ArtistID int      `json:"id"`
-	Date     []string `json:"Dates"`
+	Date     []string `json:"dates"`
 }
 
 func DecodeDates() Dates {
