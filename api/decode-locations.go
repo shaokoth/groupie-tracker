@@ -28,3 +28,13 @@ func DecodeLocations() Locations {
 
 	return locations
 }
+
+func LocationMap(locations Locations) map[int][]string {
+	lMap := make(map[int][]string)
+
+	for _, Index := range locations.Index {
+		lMap[Index.ArtistID] = Index.LocationName
+	}
+
+	return lMap
+}

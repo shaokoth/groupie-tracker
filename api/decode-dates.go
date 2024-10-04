@@ -27,3 +27,13 @@ func DecodeDates() Dates {
 
 	return Dates
 }
+
+func DateMap(dates Dates) map[int][]string {
+	dMap := make(map[int][]string)
+
+	for _, Index := range dates.Index {
+		dMap[Index.ArtistID] = Index.Date
+	}
+
+	return dMap
+}

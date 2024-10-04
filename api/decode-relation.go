@@ -27,3 +27,13 @@ func DecodeRelations() Relations {
 
 	return Relations
 }
+
+func RelationMap(relations Relations) map[int]map[string][]string {
+	rMap := make(map[int]map[string][]string)
+
+	for _, index := range relations.Index {
+		rMap[index.ArtistID] = index.Locations
+	}
+
+	return rMap
+}
