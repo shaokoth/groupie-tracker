@@ -1,13 +1,38 @@
-// Function to handle the click event and return the id of the clicked artist
-function getClickedArtist(event) {
+function getClickedArtist() {
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const artistElements = document.querySelectorAll('.artist');
+      
+        // Loop through each element and add a click event listener
+        artistElements.forEach(function(artist) {
+            artist.addEventListener('click', function() {
+                const artistId = artist.getAttribute('id');
     
-    const clickedElement = event.target; // The element that was clicked
-    const artistId = clickedElement.id;  // Retrieve the id of the clicked element
-    alert(`Clicked artist id = ${artistId}`);               // Output the id (you can return or do anything with it)
-    return artistId;
+                     //alert(`Artist ID: ${artistId}`);
+
+             //  Send the artistId to the server using fetch
+                if (artistId) {
+                    fetch(`/details`, {
+                        method: 'POST',  
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ artistId: artistId })
+                    })
+                    .then(response => response.json()) // assuming JSON response
+                    .then(data => {
+                        console.log('Response from server:', data);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+                } else {
+                    alert('Artist ID not found');
+                }
+            });
+        });
+    });
 }
 
-// Attach event listeners to all elements with class 'artist'
-document.querySelectorAll('.artist').forEach(function(artist) {
-    artist.addEventListener('click', getClickedArtistId);
-});
+getClickedArtist()
+
