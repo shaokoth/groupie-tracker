@@ -13,9 +13,7 @@ type Artist struct {
 	BandMembers		[]string	`json:"members"`
 	CreationDate	int			`json:"creationDate"`
 	FirstAlbum		string		`json:"firstAlbum"`
-	LocationAPI		string		`json:"locations"`
-	ConcertDatesAPI	string		`json:"concertDates"`
-	RelationsAPI	string		`json:"relation"`
+
 } 
 
 func DecodeArtists() []Artist {

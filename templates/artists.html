@@ -9,14 +9,13 @@
     <h1>Artists</h1>
     <ul>
         {{range .}}
-        <li class="artist" id="{{.ArtistID}}">
+        <a href="/details?ID={{.ArtistID}}">
             <h2>{{.ArtistName}}</h2>
             <img id="{{.ArtistID}}" src="{{.ArtistImage}}" alt="Artist Image" style="width:200px;">
             <p>Started: {{.CreationDate}}</p>
             <p>First Album: {{.FirstAlbum}}</p>
-        </li>
+         </a>
         {{end}}
     </ul>
-    <script src="../static/script.js"></script>    
 </body>
 </html>

@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
+	"os"
 	"strconv"
 
 	"groupie-tracker/api"
@@ -19,24 +19,15 @@ type ArtistDetails struct {
 	Concerts     map[string][]string
 }
 
-type ClickedArtist struct {
-	ArtistID string `json:"artistId"`
-}
-
 func DetailsHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
+	id := r.URL.Query().Get("ID")
+
+	artistID, err := strconv.Atoi(id)
+	if err != nil || artistID < 1 {
+		fmt.Println("Artist out of bound")
+		os.Exit(1)
 	}
 
-	var clickedArtist ClickedArtist
-	err := json.NewDecoder(r.Body).Decode(&clickedArtist)
-	if err != nil {
-		http.Error(w, "Invalid request body", http.StatusBadRequest)
-		return
-	}
-
-	artistID, _ := strconv.Atoi(clickedArtist.ArtistID)
 	artist := Artist(artistID)
 
 	t, err := template.ParseFiles("templates/details.html")
