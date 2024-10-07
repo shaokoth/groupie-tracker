@@ -2,8 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
-	"os"
 )
 
 type Dates struct {
@@ -15,17 +13,19 @@ type Date struct {
 	Date     []string `json:"dates"`
 }
 
-func DecodeDates() Dates {
-	apiBody := FetchAPI("https://groupietrackers.herokuapp.com/api/dates")
-	Dates := Dates{}
-
-	err := json.Unmarshal(apiBody, &Dates)
+func DecodeDates() (Dates, error) {
+	apiBody, err := FetchAPI("https://groupietrackers.herokuapp.com/api/dates")
 	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
+		return Dates{}, err
 	}
 
-	return Dates
+	dates := Dates{}
+	err = json.Unmarshal(apiBody, &dates)
+	if err != nil {
+		return Dates{}, err
+	}
+
+	return dates, nil
 }
 
 func DateMap(dates Dates) map[int][]string {

@@ -22,23 +22,49 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 
 	artistID, err := strconv.Atoi(id)
 	if err != nil || artistID < 1 {
-		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error")
+		errTxt := "Paths cross empty void\nSeeking what once existed\nSilence answers all."
+		ErrorHandler(w, r, http.StatusNotFound, errTxt, "404 Not Found", "Artist")
+		return
 	}
 
-	artist := Artist(artistID)
+	artist, err := Artist(artistID)
+	if artist.ArtistName == "Not Found" {
+		errTxt := "Paths cross empty void\nSeeking what once existed\nSilence answers all."
+		ErrorHandler(w, r, http.StatusNotFound, errTxt, "404 Not Found", "Artist")
+		return
+	}
+
+	if err != nil {
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error", "Reload")
+		return
+	}
 
 	t, err := template.ParseFiles("templates/details.html")
 	if err != nil {
-		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error")
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error", "Reload")
+		return
 	}
 	t.Execute(w, artist)
 }
 
-func Artist(id int) ArtistDetails {
-	artistList := api.DecodeArtists()
+func Artist(id int) (ArtistDetails, error) {
+	artistList, err := api.DecodeArtists()
+	if err != nil {
+		return ArtistDetails{}, err
+	}
+
+	if len(artistList) < id {
+		return ArtistDetails{ArtistName: "Not Found"}, nil
+	}
+
 	artist := artistList[id-1]
 
-	concerts := api.RelationMap(api.DecodeRelations())
+	concertAPI, err := api.DecodeRelations()
+	if err != nil {
+		return ArtistDetails{}, err
+	}
+
+	concerts := api.RelationMap(concertAPI)
 
 	artistD := ArtistDetails{
 		ArtistName:   artist.ArtistName,
@@ -49,5 +75,5 @@ func Artist(id int) ArtistDetails {
 		Concerts:     concerts[id],
 	}
 
-	return artistD
+	return artistD, nil
 }

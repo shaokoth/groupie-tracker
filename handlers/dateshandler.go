@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 
@@ -9,11 +8,17 @@ import (
 )
 
 func Datehandler(w http.ResponseWriter, r *http.Request) {
-	dates := api.DecodeDates()
+	dates, err := api.DecodeDates()
+	if err != nil {
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error", "Reload")
+		return
+	}
 
 	t, err := template.ParseFiles("templates/dates.html")
 	if err != nil {
-		fmt.Println("err")
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error", "Reload")
+		return
 	}
+
 	t.Execute(w, dates)
 }

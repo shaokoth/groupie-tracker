@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 
@@ -9,11 +8,17 @@ import (
 )
 
 func Locationhandler(w http.ResponseWriter, r *http.Request) {
-	locations := api.DecodeLocations()
+	locations, err := api.DecodeLocations()
+	if err != nil {
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error", "Reload")
+		return
+	}
 
 	t, err := template.ParseFiles("templates/locations.html")
 	if err != nil {
-		fmt.Println("err")
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error", "Reload")
+		return
 	}
+
 	t.Execute(w, locations)
 }

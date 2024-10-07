@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 
@@ -9,12 +8,17 @@ import (
 )
 
 func Artisthandler(w http.ResponseWriter, r *http.Request) {
-	artists := api.DecodeArtists()
+	artists, err := api.DecodeArtists()
+	if err != nil {
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error", "Reload")
+		return
+	}
 
 	t, err := template.ParseFiles("templates/artists.html")
 	if err != nil {
-		fmt.Println("err")
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server", "Error", "Reload")
+		return
 	}
+
 	t.Execute(w, artists)
 }
-

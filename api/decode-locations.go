@@ -2,8 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
-	"os"
 )
 
 type Locations struct {
@@ -15,18 +13,20 @@ type Location struct {
 	LocationName []string `json:"locations"`
 }
 
-func DecodeLocations() Locations {
-	apiBody := FetchAPI("https://groupietrackers.herokuapp.com/api/locations")
-	locations := Locations{}
-
-	err := json.Unmarshal(apiBody, &locations)
-
+func DecodeLocations() (Locations, error) {
+	apiBody, err := FetchAPI("https://groupietrackers.herokuapp.com/api/locations")
 	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
+		return Locations{}, err
 	}
 
-	return locations
+	locations := Locations{}
+
+	err = json.Unmarshal(apiBody, &locations)
+	if err != nil {
+		return Locations{}, err
+	}
+
+	return locations, nil
 }
 
 func LocationMap(locations Locations) map[int][]string {
