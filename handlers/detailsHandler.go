@@ -20,7 +20,7 @@ type ArtistDetails struct {
 }
 
 func DetailsHandler(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Query().Get("ID")
+	id := r.URL.Query().Get("id")
 
 	artistID, err := strconv.Atoi(id)
 	if err != nil || artistID < 1 {

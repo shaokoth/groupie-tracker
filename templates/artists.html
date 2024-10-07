@@ -9,7 +9,7 @@
     <h1>Artists</h1>
     <ul>
         {{range .}}
-        <a href="/details?ID={{.ArtistID}}">
+        <a href="/details?id={{.ArtistID}}">
             <h2>{{.ArtistName}}</h2>
             <img id="{{.ArtistID}}" src="{{.ArtistImage}}" alt="Artist Image" style="width:200px;">
             <p>Started: {{.CreationDate}}</p>
