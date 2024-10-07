@@ -8,9 +8,9 @@ import (
 )
 
 func main() {
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+	//http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 	
-	http.HandleFunc("/", handlers.Artisthandler)
+	http.HandleFunc("/", handlers.PathHandler)
 	http.HandleFunc("/details", handlers.DetailsHandler)
 	// http.HandleFunc("/locations", handlers.Locationhandler)
 	// http.HandleFunc("/relations", handlers.Relationthandler)

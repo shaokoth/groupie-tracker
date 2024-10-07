@@ -1,10 +1,8 @@
 package handlers
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
-	"os"
 	"strconv"
 
 	"groupie-tracker/api"
@@ -24,15 +22,14 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 
 	artistID, err := strconv.Atoi(id)
 	if err != nil || artistID < 1 {
-		fmt.Println("Artist out of bound")
-		os.Exit(1)
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error")
 	}
 
 	artist := Artist(artistID)
 
 	t, err := template.ParseFiles("templates/details.html")
 	if err != nil {
-		fmt.Println("err")
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error")
 	}
 	t.Execute(w, artist)
 }
