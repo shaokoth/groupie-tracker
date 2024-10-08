@@ -4,18 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupie Tracker</title>
+    <style>
+        /* Container holding the artists */
+        .artists-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around; /* Space between rows */
+            padding: 10px;
+        }
+
+        /* Individual artist card */
+        .artist-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 200px;
+            margin: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover effect on the artist card */
+        .artist-card:hover {
+            transform: scale(1.05); /* Slight scaling on hover */
+        }
+
+        /* Artist image styling */
+        .artist-card img {
+            border-radius: 10px 10px 0 0;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Artist details styling */
+        .artist-details {
+            padding: 10px;
+        }
+
+        .artist-details h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .artist-details p {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
     <h1>Artists</h1>
-    <ul>
+    <div class="artists-container">
         {{range .}}
-        <a href="/details?id={{.ArtistID}}">
-            <h2>{{.ArtistName}}</h2>
-            <img id="{{.ArtistID}}" src="{{.ArtistImage}}" alt="Artist Image" style="width:200px;">
-            <p>Started: {{.CreationDate}}</p>
-            <p>First Album: {{.FirstAlbum}}</p>
-         </a>
+        <div class="artist-details">
+        <a href="/details?id={{.ArtistID}}" class="artist-card">
+            <img id="{{.ArtistID}}" src="{{.ArtistImage}}" alt="Artist Image">
+                <h2>{{.ArtistName}}</h2>
+            <a></a>
+                <p>Started: {{.CreationDate}}</p>
+                <p>First Album: {{.FirstAlbum}}</p>
+            </div>
         {{end}}
-    </ul>
+    </div>
 </body>
 </html>
