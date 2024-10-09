@@ -18,6 +18,9 @@ type ArtistDetails struct {
 }
 
 func DetailsHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		ErrorHandler(w, r, http.StatusMethodNotAllowed, "Method Not Allowed", "Error", "Reload")
+	}
 	id := r.URL.Query().Get("id")
 
 	artistID, err := strconv.Atoi(id)
