@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupie Tracker</title>
 </head>
+
 <body>
     <h2>{{.ArtistName}}</h2>
-    
+
     <li>
         <img src="{{.ArtistImage}}" alt="Artist Image" style="width:200px;">
         <p>Started: {{.CreationDate}}</p>
         <p>First Album: {{.FirstAlbum}}</p>
-        <p>Members:</p>
+        <strong>Band Members</strong>
         <ul>
             {{range .BandMembers}}
                 <li>{{.}}</li>
             {{end}}
         </ul>
-        <p>Events</p>
-        {{range $key, $val := .Concerts}}
-            <li>{{$key}}</li>
-            <ul>
-            {{range $val}}
-                <li>{{.}}</li>
-            {{end}}
-            </ul>
-        {{end}}
+        <a href="/locations?id={{.ArtistID}}">
+            <p>Locations</p>
+        </a>
+        <a href="/dates?id={{.ArtistID}}">
+            <p>Dates</p>
+        </a>
+        <a href="/concerts?id={{.ArtistID}}">
+            <p>Concerts</p>
+        </a>
     </li>
+
 </body>
+
 </html>

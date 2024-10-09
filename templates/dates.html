@@ -3,21 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Concert Dates</title>
+    <title>Groupy Tracker</title>
 </head>
 <body>
-    <h1>Concert Dates</h1>
+    <h1>{{.ArtistName}}</h1>
+    <img src="{{.ArtistImage}}" alt="Artist Image">
+    <strong>Concert Dates</strong>
     <ul>
-        {{range .Index}}
-        <li>
-            <strong>Artist ID:</strong> {{.ArtistID}}<br>
-            <strong>Concert Dates:</strong>
-            <ul>
-                {{range .Date}}
-                <li>{{.}}</li>
-                {{end}}
-            </ul>
-        </li>
+        {{range .Dates}}
+             <li>{{.}}</li>
         {{end}}
     </ul>
 </body>
