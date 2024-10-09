@@ -19,14 +19,7 @@ type ArtistDetails struct {
 	Concerts     map[string][]string
 }
 
-<<<<<<< HEAD:handlers/Filter.go
 func GetID(r *http.Request) (int, error) {
-=======
-func DetailsHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
-		ErrorHandler(w, r, http.StatusMethodNotAllowed, "Method Not Allowed", "Error", "Reload")
-	}
->>>>>>> 1fc0de3f1a7dea6bd1038a14477f9970727df077:handlers/detailsHandler.go
 	id := r.URL.Query().Get("id")
 
 	artistID, err := strconv.Atoi(id)
