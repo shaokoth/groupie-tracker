@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie Tracker</title>
+    <style>
+        /* Center the heading */
+        h2 {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        /* Style the list and the image */
+        li {
+            list-style: none;
+            text-align: center;
+        }
+
+        img {
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        /* Style the table */
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Make the table rows alternate in color */
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Style for the Concerts title */
+        p {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>{{.ArtistName}}</h2>
+    <li>
+        <img src="{{.ArtistImage}}" alt="Artist Image" style="width:200px;">
+        <p><strong>Concerts</strong></p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Concert Location</th>
+                    <th>Concert Dates</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range $key, $val := .Concerts}}
+                <tr>
+                    <td>{{$key}}</td>
+                    <td>
+                        <ul>
+                            {{range $val}}
+                            <li>{{.}}</li>
+                            {{end}}
+                        </ul>
+                    </td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+        
+    </li>
+</body>
+</html>
