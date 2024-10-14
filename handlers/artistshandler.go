@@ -20,7 +20,7 @@ func Artistshandler(w http.ResponseWriter, r *http.Request) {
 
 	t, err := template.ParseFiles("templates/artists.html")
 	if err != nil {
-		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server", "Error", "Reload")
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error", "Error", "Reload")
 		return
 	}
 	t.Execute(w, artists)
