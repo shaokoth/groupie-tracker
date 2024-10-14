@@ -10,7 +10,7 @@ func PathHandler(w http.ResponseWriter, r *http.Request) {
 	case "/":
 		Artistshandler(w, r)
 	default:
-		errTxt := "Paths cross empty void\nSeeking what once existed\nSilence answers all."
-		ErrorHandler(w, r, http.StatusNotFound, errTxt, "404 Not Found", "Artist")
+		errTxt := "Oops! The page you are looking for does not exist\n."
+		ErrorHandler(w, r, http.StatusNotFound, errTxt, "404 Not Found", "Artists")
 	}
 }
