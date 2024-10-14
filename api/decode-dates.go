@@ -3,16 +3,16 @@ package api
 import (
 	"encoding/json"
 )
-
+// Dates struct contains a slice of Date struct, which holds concert dates for multiple artists.
 type Dates struct {
 	Index []Date
 }
-
+// Date struct holds the ArtistID and a slice of strings representing concert dates.
 type Date struct {
 	ArtistID int      `json:"id"`
 	Date     []string `json:"dates"`
 }
-
+// DecodeDates fetches and decodes the dates data from the API.
 func DecodeDates() (Dates, error) {
 	apiBody, err := FetchAPI("https://groupietrackers.herokuapp.com/api/dates")
 	if err != nil {
@@ -27,7 +27,7 @@ func DecodeDates() (Dates, error) {
 
 	return dates, nil
 }
-
+// DateMap takes a Dates struct and returns a map where the keys are artist IDs and the values are slices of concert dates.
 func DateMap(dates Dates) map[int][]string {
 	dMap := make(map[int][]string)
 

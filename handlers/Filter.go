@@ -18,7 +18,8 @@ type ArtistDetails struct {
 	Dates        []string
 	Concerts     map[string][]string
 }
-
+// GetID retrieves the artist ID from the HTTP request URL query parameters.
+// It returns the artist ID as an integer and an error if any occurs during conversion.
 func GetID(r *http.Request) (int, error) {
 	id := r.URL.Query().Get("id")
 
@@ -29,7 +30,7 @@ func GetID(r *http.Request) (int, error) {
 
 	return artistID, nil
 }
-
+// Artist retrieves detailed information about an artist based on the provided request.
 func Artist(r *http.Request) (ArtistDetails, error) {
 	id, err := GetID(r)
 	if err != nil {

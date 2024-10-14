@@ -6,7 +6,8 @@ import (
 
 	"groupie-tracker/api"
 )
-
+// Artistshandler handles the HTTP requests for the artists' page.
+// It responds to GET requests by fetching artist data and rendering the artists.html template.
 func Artistshandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		ErrorHandler(w, r, http.StatusMethodNotAllowed, "Method Not Allowed", "Error", "Reload")

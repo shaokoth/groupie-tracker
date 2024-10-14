@@ -3,7 +3,8 @@ package api
 import (
 	"encoding/json"
 )
-
+// Artist struct represents the structure for storing artist-related data.
+// Fields are mapped to the corresponding JSON keys using struct tags.
 type Artist struct {
 	ArtistID     int      `json:"id"`
 	ArtistName   string   `json:"name"`
@@ -12,13 +13,13 @@ type Artist struct {
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
 }
-
+// DecodeArtists fetches and decodes the artist data from the given API.
 func DecodeArtists() ([]Artist, error) {
 	apiBody, err := FetchAPI("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
 		return nil, err
 	}
-
+	// Initialize a slice of Artist to hold the decoded data
 	artists := []Artist{}
 
 	err = json.Unmarshal(apiBody, &artists)
